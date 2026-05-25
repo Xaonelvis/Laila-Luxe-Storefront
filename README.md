@@ -1,16 +1,53 @@
-# React + Vite
+# LAILA LUXE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A luxury-inspired e-commerce storefront built with React + Vite.
 
-Currently, two official plugins are available:
+## ✨ Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+LAILA LUXE is a modern product showcase platform designed for lightweight commerce using WhatsApp-based checkout instead of traditional cart systems.
 
-## React Compiler
+## 🧠 Core Philosophy
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Minimal luxury UI design
+- Fast product browsing experience
+- Direct WhatsApp conversion flow
+- Scalable component-based architecture
 
-## Expanding the ESLint configuration
+## ⚙️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React (Vite)
+- Framer Motion
+- Vanilla CSS-in-JS styling
+- ESLint + Prettier
+
+## 🧱 Architecture
+
+- `/src/components` → UI components
+- `/src/design` → design system (tokens, spacing, typography)
+- `/src/config` → environment & app configuration
+- `/src/data` → product data layer
+- `/src/layouts` → layout system
+
+## 🚀 Features
+
+- Product grid system
+- Category filtering
+- WhatsApp checkout integration
+- Responsive luxury UI baseline
+- Design token system
+
+## 🏷️ Versioning
+
+- v0.1 → Architecture foundation (current)
+
+## 📦 Deployment
+
+Ready for:
+- Vercel
+- Netlify
+- Static hosting (dist/ folder)
+
+## 📌 Status
+
+MVP stage → moving toward scalable SaaS storefront system#
+	
