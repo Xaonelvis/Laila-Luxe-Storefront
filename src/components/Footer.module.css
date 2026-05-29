@@ -1,0 +1,106 @@
+/* Footer.module.css */
+.footer {
+  background: var(--bg);
+  border-top: 2px solid var(--border-color);
+  padding: 64px 32px;
+  margin-top: 64px;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-bottom: 64px;
+}
+
+/* Mobile-First Layout */
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; gap: 24px; }
+  .bottomBar { flex-direction: column; text-align: center; gap: 16px; }
+}
+
+.columnTitle {
+  font-size: var(--font-size-micro);
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 0 0 16px 0;
+  padding-bottom: 16px;
+  border-bottom: var(--border-thin);
+}
+
+.link {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0;
+}
+
+.link:hover { color: var(--gold); }
+
+/* Newsletter Group */
+.newsletterWrapper { display: flex; flex-direction: column; gap: 16px; }
+
+.inputGroup { display: flex; gap: 8px; width: 100%; }
+
+.countrySelect {
+  border: var(--border-thin);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: var(--font-size-small);
+  color: var(--text-primary);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.newsletterInput {
+  flex: 1;
+  border: var(--border-thin);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: var(--font-size-small);
+  color: var(--text-primary);
+  background: var(--bg);
+}
+
+/* Social Icons (Horizontal Force) */
+.socialIcons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.socialIcon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-thin);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.paymentIcons { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+
+.paymentIcon {
+  padding: 4px 8px;
+  border: var(--border-thin);
+  border-radius: 3px;
+  background: var(--bg);
+  font-size: 10px;
+  color: var(--text-secondary);
+}

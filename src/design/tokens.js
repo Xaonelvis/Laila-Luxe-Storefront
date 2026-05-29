@@ -32,9 +32,10 @@ export const colors = {
   textSecondary: '#6B6B6B',
   textMuted: '#9A9A9A',
 
-  // Accent system (luxury gold)
-  gold: '#C8A45D',
-  goldSoft: '#E6D3A3',
+  // Accent system (luxury gold) - UPDATED
+  gold: '#B8956A',           // ← Changed from #C8A45D (deeper, warmer)
+  goldSoft: '#D9C9B0',       // ← Changed from #E6D3A3 (more sophisticated)
+
 
   // Borders
   border: '#E7DDC8',

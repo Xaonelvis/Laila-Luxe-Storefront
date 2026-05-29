@@ -1,17 +1,25 @@
-# dependencies
+# 1. Dependency Directories
 node_modules/
+.pnp
+.pnp.js
 
-# production builds
+# 2. Production Build Output
 dist/
-build/
 dist-ssr/
+build/
 
-# environment / secrets
+# 3. Environment Variables & Secrets (CRITICAL)
 .env
 .env.*
 *.local
 
-# logs
+# 4. Vite, Tooling & Caches
+.vite/
+.cache/
+coverage/
+.eslintcache
+
+# 5. Logs & pnpm Specifics
 logs/
 *.log
 npm-debug.log*
@@ -19,33 +27,25 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.pnpm-store/
 
-# caches
-.vite/
-.cache/
-coverage/
-
-# editor files
+# 6. OS & Editor Artifacts
+.DS_Store
+Thumbs.db
 .vscode/
 !.vscode/extensions.json
 .idea/
-*.swp
-*.swo
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE / project files
+# 7. IDE, Temp & Project Files
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-# temp files
+*.swp
+*.swo
 *.tmp
 *.temp
 
-# Android / Termux local storage
+# 8. Local Storage
 storage/
