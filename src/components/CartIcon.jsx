@@ -78,9 +78,7 @@ export default function CartIcon({ cartCount = 0, onClick }) {
 
       {/* Badge Count */}
       {cartCount > 0 && (
-        <div style={styles.badge}>
-          {cartCount > 99 ? '99+' : cartCount}
-        </div>
+        <div style={styles.badge}>{cartCount > 99 ? '99+' : cartCount}</div>
       )}
     </div>
   );

@@ -20,12 +20,21 @@
 
 /* Mobile-First Layout */
 @media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .grid { grid-template-columns: 1fr; gap: 24px; }
-  .bottomBar { flex-direction: column; text-align: center; gap: 16px; }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .bottomBar {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
 }
 
 .columnTitle {
@@ -47,12 +56,22 @@
   margin: 0;
 }
 
-.link:hover { color: var(--gold); }
+.link:hover {
+  color: var(--gold);
+}
 
 /* Newsletter Group */
-.newsletterWrapper { display: flex; flex-direction: column; gap: 16px; }
+.newsletterWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-.inputGroup { display: flex; gap: 8px; width: 100%; }
+.inputGroup {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
 
 .countrySelect {
   border: var(--border-thin);
@@ -94,7 +113,12 @@
   cursor: pointer;
 }
 
-.paymentIcons { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.paymentIcons {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
 
 .paymentIcon {
   padding: 4px 8px;

@@ -1,6 +1,12 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { APP_CONFIG } from "../config/appConfig";
+/**
+ * LAILA LUXE
+ * FILE: ProductCard.jsx
+ * PLACEMENT: src/components/ProductCard.jsx  (REPLACE — full clean version)
+ */
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { APP_CONFIG } from '../config/appConfig';
 import {
   colors,
   spacing,
@@ -8,19 +14,12 @@ import {
   shadows,
   radius,
   borders,
-} from "../design";
-
-const FALLBACK_IMAGE =
-  "data:image/svg+xml;charset=UTF-8," +
-  encodeURIComponent(`
-    <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none">
-      <rect width="800" height="1000" rx="40" fill="#FAF7F0"/>
-      <rect x="72" y="72" width="656" height="856" rx="32" fill="#F7F1E3" stroke="#E7DDC8"/>
-      <path d="M220 650L330 520L430 610L540 470L620 560" stroke="#C8A45D" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="315" cy="380" r="42" fill="#E6D3A3"/>
-      <text x="400" y="790" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#6B6B6B">LAILA LUXE</text>
-    </svg>
-  `);
+} from '../design';
+import { useCart } from '../context/CartContext';
+import { FALLBACK_IMAGE } from '../utils/constants';
+import ProductDetailModal from './ProductDetailModal';
+import PhotoGalleryModal from './PhotoGalleryModal';
+import CategoryModal from './CategoryModal';
 
 const styles = {
   card: {
@@ -28,53 +27,74 @@ const styles = {
     border: borders.thin,
     borderRadius: radius.lg,
     boxShadow: shadows.sm,
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
-    gap: spacing.md,
-    padding: spacing.md,
-    height: "100%",
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    cursor: 'pointer',
+    transition: 'box-shadow 200ms ease',
   },
   mediaWrap: {
-    position: "relative",
-    borderRadius: radius.md,
-    overflow: "hidden",
+    position: 'relative',
+    overflow: 'hidden',
     background: colors.mutedSurface,
-    aspectRatio: "4 / 5",
-    border: borders.thin,
+    aspectRatio: '4 / 5',
+    cursor: 'pointer',
   },
   image: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    display: "block",
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    display: 'block',
+    transition: 'transform 400ms ease',
+  },
+  galleryHint: {
+    position: 'absolute',
+    bottom: spacing.sm,
+    right: spacing.sm,
+    background: 'rgba(0,0,0,0.48)',
+    color: '#FFFFFF',
+    fontSize: '10px',
+    fontWeight: 600,
+    letterSpacing: '1px',
+    padding: `3px ${spacing.sm}`,
+    borderRadius: '999px',
+    backdropFilter: 'blur(4px)',
+    pointerEvents: 'none',
   },
   content: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     gap: spacing.sm,
-    padding: `0 ${spacing.xs} ${spacing.xs}`,
+    padding: spacing.md,
     flex: 1,
   },
   metaRow: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     gap: spacing.sm,
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
   },
   pill: {
-    display: "inline-flex",
-    alignItems: "center",
+    display: 'inline-flex',
+    alignItems: 'center',
     padding: `${spacing.xs} ${spacing.sm}`,
-    borderRadius: "999px",
+    borderRadius: '999px',
     background: colors.mutedSurface,
     color: colors.textSecondary,
     border: borders.thin,
     fontSize: typography.micro.fontSize,
-    lineHeight: typography.micro.lineHeight,
     fontWeight: 500,
-    letterSpacing: "0.2px",
+    letterSpacing: '0.2px',
+    cursor: 'pointer',
+    transition: 'all 150ms ease',
+  },
+  price: {
+    margin: 0,
+    color: colors.gold,
+    fontSize: typography.body.fontSize,
+    fontWeight: 700,
   },
   title: {
     margin: 0,
@@ -82,121 +102,250 @@ const styles = {
     fontSize: typography.h3.fontSize,
     lineHeight: typography.h3.lineHeight,
     fontWeight: typography.h3.fontWeight,
-    letterSpacing: typography.h3.letterSpacing || "0px",
   },
   description: {
     margin: 0,
     color: colors.textSecondary,
     fontSize: typography.body.fontSize,
     lineHeight: typography.body.lineHeight,
-    fontWeight: typography.body.fontWeight,
-    display: "-webkit-box",
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden",
-  },
-  price: {
-    margin: 0,
-    color: colors.gold,
-    fontSize: typography.body.fontSize,
-    lineHeight: typography.body.lineHeight,
-    fontWeight: 700,
-    letterSpacing: "0.2px",
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
   },
   footer: {
-    marginTop: "auto",
+    marginTop: 'auto',
     paddingTop: spacing.sm,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: spacing.sm,
+  },
+  actionRow: {
+    display: 'flex',
+    gap: spacing.xs,
+  },
+  quickBtn: {
+    flex: 1,
+    padding: `${spacing.xs} ${spacing.xs}`,
+    background: 'transparent',
+    border: borders.thin,
+    borderRadius: radius.sm,
+    color: colors.textSecondary,
+    fontSize: typography.micro.fontSize,
+    fontWeight: 500,
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    letterSpacing: '0.3px',
+    transition: 'all 150ms ease',
+  },
+  addBtn: {
+    flex: 2,
+    padding: `${spacing.xs} ${spacing.xs}`,
+    background: 'transparent',
+    border: `1px solid ${colors.gold}`,
+    borderRadius: radius.sm,
+    color: colors.gold,
+    fontSize: typography.micro.fontSize,
+    fontWeight: 600,
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    letterSpacing: '0.3px',
+    transition: 'all 150ms ease',
+  },
+  addBtnInCart: {
+    flex: 2,
+    padding: `${spacing.xs} ${spacing.xs}`,
+    background: colors.mutedSurface,
+    border: borders.thin,
+    borderRadius: radius.sm,
+    color: colors.textSecondary,
+    fontSize: typography.micro.fontSize,
+    fontWeight: 500,
+    cursor: 'default',
+    fontFamily: 'inherit',
   },
   cta: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    minHeight: "44px",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    minHeight: '44px',
     padding: `0 ${spacing.md}`,
     background: colors.gold,
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     borderRadius: radius.md,
-    textDecoration: "none",
-    border: "none",
+    textDecoration: 'none',
+    border: 'none',
     fontSize: typography.small.fontSize,
-    lineHeight: typography.small.lineHeight,
     fontWeight: 600,
-    letterSpacing: "0.2px",
+    letterSpacing: '0.2px',
     boxShadow: shadows.sm,
-    cursor: "pointer",
-    boxSizing: "border-box",
+    cursor: 'pointer',
+    boxSizing: 'border-box',
   },
 };
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onCategoryClick }) {
   const [imageError, setImageError] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailTab, setDetailTab] = useState('Details');
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [catModalOpen, setCatModalOpen] = useState(false);
+  const { addItem, cartItems } = useCart();
+
+  const isInCart = cartItems.some((i) => i.id === product.id);
+
+  const openDetail = (tab = 'Details') => {
+    setDetailTab(tab);
+    setDetailOpen(true);
+  };
+
+  const handleCategoryClick = (e) => {
+    e.stopPropagation();
+    if (onCategoryClick) {
+      onCategoryClick(product.category);
+    } else {
+      setCatModalOpen(true);
+    }
+  };
 
   const whatsappMessage =
     product?.whatsappMessage?.trim() ||
-    `Hi LAILA LUXE, I would like to order ${product?.name || "this item"}.`;
-
-  const whatsappLink = `https://wa.me/${APP_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-    whatsappMessage
-  )}`;
+    `Hi LAILA LUXE, I would like to order ${product?.name || 'this item'}.`;
+  const whatsappLink = `https://wa.me/${APP_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const showCategory = Boolean(product?.category);
   const showPrice =
     product?.price !== undefined &&
     product?.price !== null &&
-    `${product.price}`.trim() !== "";
+    `${product.price}`.trim() !== '';
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6, scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      transition={{ duration: 0.22, ease: "easeOut" }}
-      style={styles.card}
-    >
-      <div style={styles.mediaWrap}>
-        <img
-          src={imageError ? FALLBACK_IMAGE : product.image}
-          alt={product.name || "Product image"}
-          loading="lazy"
-          decoding="async"
-          onError={() => setImageError(true)}
-          style={styles.image}
-        />
-      </div>
+    <>
+      <motion.article
+        id={`product-${product.id}`}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -4, boxShadow: shadows.md }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ duration: 0.22, ease: 'easeOut' }}
+        style={styles.card}
+        onClick={() => openDetail('Details')}
+      >
+        {/* Image — click opens gallery */}
+        <div
+          style={styles.mediaWrap}
+          onClick={(e) => {
+            e.stopPropagation();
+            setGalleryOpen(true);
+          }}
+        >
+          <img
+            src={imageError ? FALLBACK_IMAGE : product.image}
+            alt={product.name || 'Product image'}
+            loading="lazy"
+            decoding="async"
+            onError={() => setImageError(true)}
+            style={styles.image}
+          />
+          <span style={styles.galleryHint}>VIEW PHOTOS</span>
+        </div>
 
-      <div style={styles.content}>
-        <div style={styles.metaRow}>
-          {showCategory ? (
-            <span style={styles.pill}>{product.category}</span>
-          ) : (
-            <span />
+        {/* Content */}
+        <div style={styles.content}>
+          <div style={styles.metaRow}>
+            {showCategory ? (
+              <span
+                style={styles.pill}
+                onClick={handleCategoryClick}
+                title={`Browse all ${product.category} items`}
+              >
+                {product.category}
+              </span>
+            ) : (
+              <span />
+            )}
+            {showPrice && <span style={styles.price}>{product.price}</span>}
+          </div>
+
+          <h3 style={styles.title}>{product.name}</h3>
+
+          {product.description && (
+            <p style={styles.description}>{product.description}</p>
           )}
-          {showPrice ? <span style={styles.price}>{product.price}</span> : null}
+
+          <div style={styles.footer}>
+            {/* Quick actions */}
+            <div style={styles.actionRow}>
+              <button
+                style={styles.quickBtn}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openDetail('Details');
+                }}
+              >
+                Details
+              </button>
+              <button
+                style={styles.quickBtn}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openDetail('Share');
+                }}
+              >
+                Share
+              </button>
+              <button
+                style={isInCart ? styles.addBtnInCart : styles.addBtn}
+                disabled={isInCart}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addItem(product);
+                }}
+              >
+                {isInCart ? '✓ Added' : '+ Add'}
+              </button>
+            </div>
+
+            {/* Primary CTA */}
+            <motion.a
+              href={whatsappLink}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Order ${product.name} on WhatsApp`}
+              onClick={(e) => e.stopPropagation()}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.18 }}
+              style={styles.cta}
+            >
+              Order on WhatsApp
+            </motion.a>
+          </div>
         </div>
+      </motion.article>
 
-        <h3 style={styles.title}>{product.name}</h3>
+      {/* Modals */}
+      <ProductDetailModal
+        product={product}
+        isOpen={detailOpen}
+        onClose={() => setDetailOpen(false)}
+        initialTab={detailTab}
+      />
 
-        {product.description ? (
-          <p style={styles.description}>{product.description}</p>
-        ) : null}
+      <PhotoGalleryModal
+        product={product}
+        isOpen={galleryOpen}
+        onClose={() => setGalleryOpen(false)}
+      />
 
-        <div style={styles.footer}>
-          <motion.a
-            href={whatsappLink}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Order ${product.name} on WhatsApp`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.18 }}
-            style={styles.cta}
-          >
-            Order on WhatsApp
-          </motion.a>
-        </div>
-      </div>
-    </motion.article>
+      {!onCategoryClick && (
+        <CategoryModal
+          category={product.category}
+          isOpen={catModalOpen}
+          onClose={() => setCatModalOpen(false)}
+        />
+      )}
+    </>
   );
 }

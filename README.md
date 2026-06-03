@@ -43,6 +43,7 @@ LAILA LUXE is a modern product showcase platform designed for lightweight commer
 ## 📦 Deployment
 
 Ready for:
+
 - Vercel
 - Netlify
 - Static hosting (dist/ folder)
@@ -50,4 +51,3 @@ Ready for:
 ## 📌 Status
 
 MVP stage → moving toward scalable SaaS storefront system#
-	

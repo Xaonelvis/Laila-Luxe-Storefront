@@ -17,7 +17,9 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Discover</h3>
             {footerData.discover.map((item, idx) => (
-              <p key={idx} className={styles.link}>{item}</p>
+              <p key={idx} className={styles.link}>
+                {item}
+              </p>
             ))}
           </div>
 
@@ -25,7 +27,9 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Customer Care</h3>
             {footerData.care.map((item, idx) => (
-              <p key={idx} className={styles.link}>{item}</p>
+              <p key={idx} className={styles.link}>
+                {item}
+              </p>
             ))}
           </div>
 
@@ -33,7 +37,9 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Legal & Policy</h3>
             {footerData.legal.map((item, idx) => (
-              <p key={idx} className={styles.link}>{item}</p>
+              <p key={idx} className={styles.link}>
+                {item}
+              </p>
             ))}
           </div>
 
@@ -47,20 +53,23 @@ export default function Footer() {
                   <option value="+254">+254</option>
                   <option value="+255">+255</option>
                 </select>
-                <input 
-                  type="tel" 
-                  placeholder="WhatsApp number" 
-                  className={styles.newsletterInput} 
+                <input
+                  type="tel"
+                  placeholder="WhatsApp number"
+                  className={styles.newsletterInput}
                 />
               </div>
               <p className={styles.link} style={{ fontSize: '14px' }}>
-                We'll update you on our latest collections & exclusive offers via WhatsApp.
+                We'll update you on our latest collections & exclusive offers
+                via WhatsApp.
               </p>
             </div>
-            
+
             <div className={styles.socialIcons}>
               {footerData.social.map((platform, idx) => (
-                <div key={idx} className={styles.socialIcon} title={platform}>◌</div>
+                <div key={idx} className={styles.socialIcon} title={platform}>
+                  ◌
+                </div>
               ))}
             </div>
           </div>
@@ -69,7 +78,9 @@ export default function Footer() {
         <div className={styles.divider} />
 
         <div style={{ marginBottom: '32px' }}>
-          <p className={styles.columnTitle} style={{ borderBottom: 'none' }}>Payment Methods</p>
+          <p className={styles.columnTitle} style={{ borderBottom: 'none' }}>
+            Payment Methods
+          </p>
           <div className={styles.paymentIcons}>
             {footerData.payment.map((method, idx) => (
               <div key={idx} className={styles.paymentIcon}>
@@ -81,7 +92,9 @@ export default function Footer() {
 
         <div className={styles.bottomBar}>
           <p className={styles.link}>© 2026 LAILA LUXE. All rights reserved.</p>
-          <p className={styles.link} style={{ fontStyle: 'italic' }}>Redefining Everyday Luxury</p>
+          <p className={styles.link} style={{ fontStyle: 'italic' }}>
+            Redefining Everyday Luxury
+          </p>
         </div>
       </div>
     </footer>

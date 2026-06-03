@@ -1,11 +1,5 @@
 import { motion } from 'framer-motion';
-import {
-  borders,
-  colors,
-  shadows,
-  spacing,
-  typography,
-} from '../design';
+import { borders, colors, shadows, spacing, typography } from '../design';
 
 const categories = ['all', 'home', 'fashion', 'lifestyle', 'accessories'];
 

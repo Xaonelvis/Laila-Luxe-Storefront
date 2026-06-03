@@ -20,4 +20,5 @@ export const shadows = {
   sm: '0 2px 8px rgba(0,0,0,0.04)',
   md: '0 6px 18px rgba(0,0,0,0.06)',
   lg: '0 12px 30px rgba(0,0,0,0.08)',
+  xl: '0 24px 64px rgba(0,0,0,0.14)', // ← ADD THIS
 };

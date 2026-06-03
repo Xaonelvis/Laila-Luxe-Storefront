@@ -1,26 +1,31 @@
 :root {
   /* TEXT SYSTEM - from tokens.js */
-  --text: #1A1A1A;
-  --text-secondary: #6B6B6B;
-  --text-muted: #9A9A9A;
+  --text: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --text-muted: #9a9a9a;
 
   /* BACKGROUND SYSTEM - from tokens.js */
-  --bg: #FAF7F0;
-  --surface: #FFFFFF;
-  --muted-surface: #FAF7F0;
+  --bg: #faf7f0;
+  --surface: #ffffff;
+  --muted-surface: #faf7f0;
 
   /* ACCENT SYSTEM - Luxury Gold (UPDATED) */
-  --gold: #B8956A;
-  --gold-soft: #D9C9B0;
+  --gold: #b8956a;
+  --gold-soft: #d9c9b0;
 
   /* BORDERS - from tokens.js */
-  --border: #E7DDC8;
-  --border-medium: #D8C9A8;
+  --border: #e7ddc8;
+  --border-medium: #d8c9a8;
+  --text-primary: #1a1a1a; /* alias — matches --text */
+  --border-color: #e7ddc8; /* alias — matches --border */
+  --border-thin: 1px solid #e7ddc8;
+  --font-size-small: 14px;
+  --font-size-micro: 12px;
 
   /* STATUS COLORS - from tokens.js */
-  --success: #2E7D32;
-  --warning: #B26A00;
-  --error: #C62828;
+  --success: #2e7d32;
+  --warning: #b26a00;
+  --error: #c62828;
 
   /* TYPOGRAPHY - System fonts */
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -46,11 +51,11 @@
 /* DARK MODE SUPPORT (future) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #F3F4F6;
-    --text-secondary: #D1D5DB;
-    --text-muted: #9CA3AF;
-    --bg: #0F0F0F;
-    --surface: #1A1A1A;
+    --text: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
     --muted-surface: #262626;
     --border: #404040;
     --border-medium: #525252;
@@ -202,21 +207,4 @@ button {
     font-size: 18px;
     line-height: 26px;
   }
-}
-
-/* index.css */
-:root {
-  /* Colors */
-  --bg: #F7F1E3;
-  --text-primary: #1A1A1A;
-  --text-secondary: #6B6B6B;
-  --border-color: #E7DDC8;
-  --gold: #B8956A;
-  
-  /* Borders */
-  --border-thin: 1px solid #E7DDC8;
-  
-  /* Typography */
-  --font-size-small: 14px;
-  --font-size-micro: 12px;
 }

@@ -1,65 +1,114 @@
-import { useState } from 'react';
+/**
+ * LAILA LUXE
+ * FILE: App.jsx
+ * PLACEMENT: src/App.jsx  (REPLACE existing)
+ *
+ * ARCHITECTURE FLOW (per spec):
+ * Homepage → Category Modal → Product Detail Modal → Cart Drawer → WhatsApp
+ *
+ * CHANGES FROM PREVIOUS VERSION:
+ * - searchQuery state: passed to Navbar → SearchBar; filters the product grid
+ * - modalCategory state: clicking a category filter pill opens CategoryModal
+ *   for that category. "ALL" closes the modal and resets filter.
+ * - filteredProducts: filters by BOTH category AND searchQuery
+ * - CategoryModal renders at app level (one instance, not per-card)
+ * - onSearch passed to Navbar → SearchBar for real-time grid filtering
+ * - CategoryFilter onChange updated: non-"all" clicks open CategoryModal
+ *   in addition to filtering the grid (per "we keep filters" spec rule)
+ */
+
+import { useState, useRef } from 'react';
 import { products } from './data/products';
-import ProductCard from './components/ProductCard';
+import ProductGrid from './components/ProductGrid';
 import CategoryFilter from './components/CategoryFilter';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Hero from './components/Hero';
+import MarqueeStrip from './components/MarqueeStrip';
+import CategoryModal from './components/CategoryModal';
 import MainLayout from './layouts/MainLayout';
-import { spacing } from './design';
 
 function App() {
   const [category, setCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [modalCategory, setModalCategory] = useState(null); // null = modal closed
 
-  const filteredProducts =
-    category === 'all'
-      ? products
-      : products.filter((p) => p.category === category);
+  // Ref for Hero CTA smooth scroll
+  const productsRef = useRef(null);
+  const scrollToProducts = () =>
+    productsRef.current?.scrollIntoView({ behavior: 'smooth' });
+
+  // ── Category handler ─────────────────────────────────────────────────────
+  // "All" → reset filter, close modal
+  // Any category → filter grid AND open CategoryModal as browse lens
+  const handleCategoryChange = (cat) => {
+    setCategory(cat);
+    setModalCategory(cat === 'all' ? null : cat);
+  };
+
+  // Called from CategoryModal's internal switcher — keeps grid in sync
+  const handleModalCategoryChange = (cat) => {
+    setCategory(cat);
+    setModalCategory(cat);
+  };
+
+  // ── Filtered products ────────────────────────────────────────────────────
+  // Filters by both the active category chip AND the search query
+  const filteredProducts = products.filter((p) => {
+    const matchCat = category === 'all' || p.category === category;
+    const matchSearch =
+      !searchQuery ||
+      p.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.category?.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchCat && matchSearch;
+  });
 
   return (
-    <div style={{ background: '#F5F1EA', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* NAVBAR */}
-      <Navbar />
+    <div
+      style={{
+        background: '#F5F0E8',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* Navbar — receives onSearch to wire SearchBar to this state */}
+      <Navbar onSearch={setSearchQuery} />
 
-      {/* MAIN CONTENT */}
+      {/* Hero — "Explore Collections" scrolls to products section */}
+      <Hero onExplore={scrollToProducts} />
+
+      {/* Marquee strip */}
+      <MarqueeStrip />
+
+      {/* Main content */}
       <MainLayout>
-        {/* HEADER */}
-        <div style={{ textAlign: 'center', paddingBottom: spacing.xl }}>
-          <h1 style={{ letterSpacing: '6px', fontWeight: '300', margin: 0, fontSize: '48px' }}>
-            LAILA LUXE
-          </h1>
-
-          <div
-            style={{
-              width: '80px',
-              height: '2px',
-              background: '#C6A972',
-              margin: `${spacing.lg} auto`,
-            }}
+        <div ref={productsRef}>
+          {/* Category filter pills
+              Clicking a specific category also opens CategoryModal */}
+          <CategoryFilter
+            activeCategory={category}
+            onChange={handleCategoryChange}
           />
 
-          <p style={{ color: '#555', margin: 0 }}>Redefining Everyday Luxury</p>
-        </div>
-
-        {/* CATEGORY FILTER */}
-        <CategoryFilter activeCategory={category} onChange={setCategory} />
-
-        {/* PRODUCTS GRID */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: spacing.lg,
-            marginBottom: spacing.huge,
-          }}
-        >
-          {filteredProducts.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
+          {/* Product grid — stagger animations handled inside ProductGrid */}
+          <ProductGrid products={filteredProducts} />
         </div>
       </MainLayout>
 
-      {/* FOOTER */}
+      {/* Footer */}
       <Footer />
+
+      {/* ── App-level CategoryModal ──────────────────────────────────────────
+          Rendered once here — triggered by CategoryFilter pill clicks.
+          ProductCard category pills manage their own CategoryModal internally. */}
+      <CategoryModal
+        category={modalCategory}
+        isOpen={!!modalCategory}
+        onClose={() => setModalCategory(null)}
+        onCategoryChange={handleModalCategoryChange}
+      />
     </div>
   );
 }
