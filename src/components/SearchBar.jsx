@@ -14,8 +14,8 @@
  * - onDismiss prop: called when Escape or blur with empty query
  */
 
-import { useState, useCallback, useRef } from 'react';
 import { colors, spacing, typography, borders, radius } from '../design';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { products } from '../data/products';
 
 export default function SearchBar({
@@ -28,6 +28,14 @@ export default function SearchBar({
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const inputRef = useRef(null);
+
+  // ← PUT IT HERE, top level, not inside any other function
+  useEffect(() => {
+    if (isActive) {
+      const t = setTimeout(() => inputRef.current?.focus(), 30);
+      return () => clearTimeout(t);
+    }
+  }, [isActive]);
 
   // Filter products matching the query against name, description, category
   const getMatches = (q) => {
@@ -136,7 +144,6 @@ export default function SearchBar({
         onClick={() => {
           if (!isActive) {
             setIsActive(true);
-            inputRef.current?.focus();
           }
         }}
       >

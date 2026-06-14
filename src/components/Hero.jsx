@@ -1,80 +1,92 @@
 /**
  * LAILA LUXE
  * FILE: Hero.jsx
- * PLACEMENT: src/components/Hero.jsx  (new file — no existing conflict)
+ * PLACEMENT: src/components/Hero.jsx  (REPLACE existing)
  *
- * PURPOSE:
- * Above-the-fold editorial hero section.
- * The single most impactful piece of the proposal — what the client sees first.
- * Replaces the stripped inline header block that was removed from App.jsx.
- *
- * PROPS:
- * - onExplore: () => void
- *   Smooth-scrolls to the products section (wired via ref in App.jsx)
- *
- * DESIGN DECISIONS:
- * - Radial gold aura: depth without visual noise
- * - Expo ease curve [0.16, 1, 0.3, 1]: the "expensive" motion feel
- * - Animated gold rule: draws the eye down the hierarchy
- * - Staggered entrance: kicker → headline → rule → tagline → CTA → scroll nudge
- * - clamp() font size: fluid across all screen widths, no breakpoints needed
- * - Scroll nudge: subtle animated line, fades in last, disappears on scroll
+ * CHANGES:
+ * - id="hero-section" added — Navbar reads this to compute scroll threshold
+ * - Typography made louder: clamp(72px→180px), wider letter-spacing
+ * - Scroll indicator upgraded: mouse SVG icon + "DISCOVER" label
+ * - bgImage prop: when provided, applies dark overlay + white text
+ * - minHeight: '100vh' — fills full viewport behind fixed navbar
+ * - paddingTop: '88px' — pushes content below fixed navbar
  */
 
 import { motion } from 'framer-motion';
 import { colors, spacing, typography } from '../design';
 
-// Expo ease-out — produces the "this feels expensive" motion quality
 const expo = [0.16, 1, 0.3, 1];
 
-export default function Hero({ onExplore }) {
-  return (
-    <section
-      style={{
-        position: 'relative',
-        minHeight: '88vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        overflow: 'hidden',
-        background:
-          'linear-gradient(160deg, #F7F1E3 0%, #FEFCF8 55%, #F0E8D8 100%)',
-        padding: `${spacing.huge} ${spacing.lg}`,
-        boxSizing: 'border-box',
-      }}
-    >
-      {/* ── Radial gold aura ─────────────────────────────────────────────
-          Adds perceived depth to the flat cream background.
-          aria-hidden so screen readers skip decorative element.          */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '700px',
-          height: '700px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(ellipse, rgba(184,149,106,0.10) 0%, transparent 68%)',
-          pointerEvents: 'none',
-        }}
-      />
+export default function Hero({ onExplore, bgImage }) {
+  const hasImage = Boolean(bgImage);
 
-      {/* ── Kicker label ─────────────────────────────────────────────────
-          First text to appear. Sets the season/context.               */}
+  // Text colors adapt to background
+  const headlineColor = hasImage ? '#FFFFFF' : colors.textPrimary;
+  const subColor = hasImage ? 'rgba(255,255,255,0.75)' : colors.textSecondary;
+  const kickerColor = hasImage ? '#D4AA7D' : colors.gold;
+  const ruleColor = hasImage ? '#D4AA7D' : colors.gold;
+  const ctaBg = hasImage ? 'rgba(255,255,255,0.15)' : colors.gold;
+  const ctaColor = hasImage ? '#FFFFFF' : '#FFFFFF';
+  const ctaBorder = hasImage ? '1px solid rgba(255,255,255,0.4)' : 'none';
+
+  const sectionStyle = {
+    id: 'hero-section', // NOTE: id is set on the JSX element below
+    position: 'relative',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    overflow: 'hidden',
+    paddingTop: '88px', // clears fixed navbar
+    paddingBottom: spacing.huge,
+    paddingLeft: spacing.lg,
+    paddingRight: spacing.lg,
+    boxSizing: 'border-box',
+    ...(hasImage
+      ? {
+          backgroundImage: `linear-gradient(to bottom, rgba(15,10,5,0.38) 0%, rgba(15,10,5,0.60) 100%), url(${bgImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }
+      : {
+          background:
+            'linear-gradient(160deg, #F5F0E8 0%, #FEFCF8 52%, #EDE5D8 100%)',
+        }),
+  };
+
+  return (
+    <section id="hero-section" style={sectionStyle}>
+      {/* Radial gold aura — only on cream version */}
+      {!hasImage && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '860px',
+            height: '860px',
+            borderRadius: '50%',
+            background:
+              'radial-gradient(ellipse, rgba(184,149,106,0.12) 0%, transparent 66%)',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+
+      {/* Kicker */}
       <motion.p
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.1, ease: expo }}
         style={{
           fontSize: typography.micro.fontSize,
           fontWeight: 700,
-          letterSpacing: '5px',
-          color: colors.gold,
+          letterSpacing: '6px',
+          color: kickerColor,
           textTransform: 'uppercase',
           margin: `0 0 ${spacing.xl} 0`,
         }}
@@ -82,56 +94,59 @@ export default function Hero({ onExplore }) {
         New Season · 2026
       </motion.p>
 
-      {/* ── Display headline ─────────────────────────────────────────────
-          clamp() scales fluidly: 56px mobile → 128px wide desktop.
-          Weight contrast (200 / 600) creates editorial hierarchy.     */}
+      {/* ── Main headline — the LOUD part ── */}
       <motion.h1
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 48 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.25, ease: expo }}
+        transition={{ duration: 1.1, delay: 0.22, ease: expo }}
         style={{
-          fontSize: 'clamp(56px, 11vw, 128px)',
-          fontWeight: 200,
-          letterSpacing: 'clamp(8px, 2vw, 20px)',
-          color: colors.textPrimary,
-          lineHeight: 1,
+          // clamp: 72px mobile → 180px wide desktop
+          fontSize: 'clamp(72px, 16vw, 180px)',
+          fontWeight: 300,
+          // LAILA gets extreme width, LUXE gets tighter weight contrast
+          letterSpacing: 'clamp(14px, 3.5vw, 40px)',
+          color: headlineColor,
+          lineHeight: 0.92,
           margin: 0,
         }}
       >
         LAILA
         <br />
         <span
-          style={{ fontWeight: 600, letterSpacing: 'clamp(6px, 1.5vw, 14px)' }}
+          style={{
+            fontWeight: 700,
+            letterSpacing: 'clamp(8px, 2vw, 22px)',
+            // Slightly tighter on LUXE for visual tension
+          }}
         >
           LUXE
         </span>
       </motion.h1>
 
-      {/* ── Animated gold rule ───────────────────────────────────────────
-          scaleX 0 → 1 wipe. Draws the eye down to the tagline.       */}
+      {/* Animated gold rule */}
       <motion.div
         aria-hidden="true"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
-        transition={{ duration: 0.9, delay: 0.8, ease: expo }}
+        transition={{ duration: 1, delay: 0.9, ease: expo }}
         style={{
-          width: '80px',
+          width: '100px',
           height: '1px',
-          background: colors.gold,
+          background: ruleColor,
           margin: `${spacing.xl} auto`,
           transformOrigin: 'center',
         }}
       />
 
-      {/* ── Tagline ──────────────────────────────────────────────────── */}
+      {/* Tagline */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.0 }}
+        transition={{ duration: 0.9, delay: 1.1 }}
         style={{
           fontSize: typography.small.fontSize,
-          color: colors.textSecondary,
-          letterSpacing: '3px',
+          color: subColor,
+          letterSpacing: '4px',
           textTransform: 'uppercase',
           margin: `0 0 ${spacing.xxl} 0`,
         }}
@@ -139,42 +154,39 @@ export default function Hero({ onExplore }) {
         Redefining Everyday Luxury
       </motion.p>
 
-      {/* ── CTA button ───────────────────────────────────────────────────
-          borderRadius: '2px' — deliberately sharp. Luxury ≠ rounded.
-          whileHover lifts with gold glow. whileTap gives press feel.  */}
+      {/* CTA */}
       <motion.button
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 22 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.2 }}
-        whileHover={{ y: -3, boxShadow: '0 12px 32px rgba(184,149,106,0.30)' }}
+        transition={{ duration: 0.6, delay: 1.3 }}
+        whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(184,149,106,0.35)' }}
         whileTap={{ scale: 0.97 }}
         onClick={onExplore}
         style={{
           padding: `${spacing.md} ${spacing.xxl}`,
-          background: colors.gold,
-          color: '#FFFFFF',
-          border: 'none',
+          background: ctaBg,
+          color: ctaColor,
+          border: ctaBorder,
           borderRadius: '2px',
           fontSize: typography.micro.fontSize,
           fontWeight: 700,
-          letterSpacing: '4px',
+          letterSpacing: '5px',
           textTransform: 'uppercase',
           cursor: 'pointer',
           fontFamily: 'inherit',
-          transition: 'all 280ms ease',
+          transition: 'all 300ms ease',
+          backdropFilter: hasImage ? 'blur(8px)' : 'none',
         }}
       >
         Explore Collections
       </motion.button>
 
-      {/* ── Scroll nudge ─────────────────────────────────────────────────
-          Fades in last (delay 1.8s). Bouncing line signals more below.
-          aria-hidden — purely decorative.                              */}
+      {/* ── Upgraded scroll indicator ── */}
       <motion.div
         aria-hidden="true"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.45 }}
-        transition={{ duration: 1, delay: 1.8 }}
+        animate={{ opacity: 0.55 }}
+        transition={{ duration: 1.2, delay: 2 }}
         style={{
           position: 'absolute',
           bottom: spacing.xl,
@@ -183,24 +195,50 @@ export default function Hero({ onExplore }) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: spacing.xs,
-          color: colors.textMuted,
-          fontSize: '10px',
-          letterSpacing: '3px',
-          textTransform: 'uppercase',
+          gap: spacing.sm,
         }}
       >
-        <span>Scroll</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        {/* Mouse icon with animated scroll dot */}
+        <svg
+          width="26"
+          height="40"
+          viewBox="0 0 26 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="1.5"
+            y="1.5"
+            width="23"
+            height="37"
+            rx="11.5"
+            stroke={ruleColor}
+            strokeWidth="1.5"
+          />
+          <motion.rect
+            x="11"
+            y="7"
+            width="4"
+            height="7"
+            rx="2"
+            fill={ruleColor}
+            animate={{ y: [7, 20, 7], opacity: [0.9, 0.2, 0.9] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </svg>
+
+        {/* "DISCOVER" label */}
+        <span
           style={{
-            width: '1px',
-            height: '28px',
-            background: colors.gold,
-            opacity: 0.6,
+            fontSize: '9px',
+            fontWeight: 700,
+            letterSpacing: '4px',
+            color: ruleColor,
+            textTransform: 'uppercase',
           }}
-        />
+        >
+          Discover
+        </span>
       </motion.div>
     </section>
   );

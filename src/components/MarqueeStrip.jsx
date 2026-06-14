@@ -29,6 +29,7 @@ const COPIES = 4;
 export default function MarqueeStrip() {
   return (
     <div
+      id="marquee-strip"
       aria-hidden="true"
       style={{
         overflow: 'hidden',

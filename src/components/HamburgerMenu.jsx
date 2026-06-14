@@ -29,7 +29,7 @@ const styles = {
     bottom: 0,
     background: 'rgba(0, 0, 0, 0.3)',
     zIndex: 999,
-    transition: 'opacity 300ms ease',
+    transition: 'opacity 200ms ease',
   },
 
   drawer: {
@@ -44,7 +44,7 @@ const styles = {
     boxShadow: shadows.lg,
     display: 'flex',
     flexDirection: 'column',
-    transition: 'transform 300ms ease',
+    transition: 'transform 200ms ease',
   },
 
   drawerOpen: {
@@ -95,7 +95,7 @@ const styles = {
     fontWeight: 600,
     color: colors.textSecondary,
     textTransform: 'uppercase',
-    letterSpacing: '1px',
+    letterSpacing: '2px',
     margin: `0 0 ${spacing.md} 0`,
     paddingBottom: spacing.md,
     borderBottom: `1px solid ${colors.border}`,
@@ -180,7 +180,9 @@ export default function HamburgerMenu({ isOpen = false, onToggle }) {
       >
         {/* Header with Close Button */}
         <div style={styles.header}>
-          <p style={styles.brandStatement}>LAILA LUXE</p>
+          <a href="home" style={styles.brandStatement}>
+            LAILA LUXE
+          </a>
           <button
             style={styles.closeButton}
             onClick={() => onToggle(false)}
@@ -216,16 +218,17 @@ export default function HamburgerMenu({ isOpen = false, onToggle }) {
         {/* Social Icons Footer */}
         <div style={styles.footer}>
           {socialLinks.map((platform, idx) => (
-            <div
+            <a
+              href={`https://www.${platform}.com/laila-luxe`}
               key={idx}
               style={styles.socialIcon}
               title={platform}
-              role="button"
-              tabIndex={0}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {/* Placeholder icon */}
               <span style={{ fontSize: '18px' }}>◌</span>
-            </div>
+            </a>
           ))}
         </div>
       </div>

@@ -20,6 +20,7 @@ import { FALLBACK_IMAGE } from '../utils/constants';
 import ProductDetailModal from './ProductDetailModal';
 import PhotoGalleryModal from './PhotoGalleryModal';
 import CategoryModal from './CategoryModal';
+import { useWishlist } from '../context/WishlistContext';
 
 const styles = {
   card: {
@@ -93,8 +94,10 @@ const styles = {
   price: {
     margin: 0,
     color: colors.gold,
-    fontSize: typography.body.fontSize,
-    fontWeight: 700,
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontSize: '20px',
+    fontWeight: 400,
+    letterSpacing: '1.5px',
   },
   title: {
     margin: 0,
@@ -123,9 +126,11 @@ const styles = {
   actionRow: {
     display: 'flex',
     gap: spacing.xs,
+    flexWrap: 'wrap',
   },
   quickBtn: {
-    flex: 1,
+    flex: '1 1 auto',
+    minWidth: '0',
     padding: `${spacing.xs} ${spacing.xs}`,
     background: 'transparent',
     border: borders.thin,
@@ -137,9 +142,9 @@ const styles = {
     fontFamily: 'inherit',
     letterSpacing: '0.3px',
     transition: 'all 150ms ease',
+    whiteSpace: 'nowrap',
   },
   addBtn: {
-    flex: 2,
     padding: `${spacing.xs} ${spacing.xs}`,
     background: 'transparent',
     border: `1px solid ${colors.gold}`,
@@ -151,9 +156,12 @@ const styles = {
     fontFamily: 'inherit',
     letterSpacing: '0.3px',
     transition: 'all 150ms ease',
+    whiteSpace: 'nowrap',
+    flex: '1 1 auto',
   },
   addBtnInCart: {
-    flex: 2,
+    whiteSpace: 'nowrap',
+    flex: '1 1 auto',
     padding: `${spacing.xs} ${spacing.xs}`,
     background: colors.mutedSurface,
     border: borders.thin,
@@ -192,7 +200,8 @@ export default function ProductCard({ product, onCategoryClick }) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [catModalOpen, setCatModalOpen] = useState(false);
   const { addItem, cartItems } = useCart();
-
+  const { toggleWishlist, isWishlisted } = useWishlist();
+  const wishlisted = isWishlisted(product.id);
   const isInCart = cartItems.some((i) => i.id === product.id);
 
   const openDetail = (tab = 'Details') => {
@@ -265,7 +274,9 @@ export default function ProductCard({ product, onCategoryClick }) {
             ) : (
               <span />
             )}
-            {showPrice && <span style={styles.price}>{product.price}</span>}
+            {showPrice && (
+              <span className="price">{product.price.toLocaleString()}</span>
+            )}
           </div>
 
           <h3 style={styles.title}>{product.name}</h3>
@@ -296,6 +307,23 @@ export default function ProductCard({ product, onCategoryClick }) {
                 Share
               </button>
               <button
+                style={{
+                  ...styles.quickBtn,
+                  flex: '1 1 auto',
+                  whiteSpace: 'nowrap',
+                  color: wishlisted ? colors.gold : colors.textSecondary,
+                  borderColor: wishlisted ? colors.gold : colors.border,
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWishlist(product);
+                }}
+                title={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+              >
+                {wishlisted ? '♥' : '♡'}
+              </button>
+
+              <button
                 style={isInCart ? styles.addBtnInCart : styles.addBtn}
                 disabled={isInCart}
                 onClick={(e) => {
@@ -319,7 +347,7 @@ export default function ProductCard({ product, onCategoryClick }) {
               transition={{ duration: 0.18 }}
               style={styles.cta}
             >
-              Order on WhatsApp
+              Order via WhatsApp
             </motion.a>
           </div>
         </div>

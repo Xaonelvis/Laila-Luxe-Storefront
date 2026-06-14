@@ -115,16 +115,40 @@
 
 .paymentIcons {
   display: flex;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 10px;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.paymentIcons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.paymentIcons {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  align-items: anchor-center;
 }
 
 .paymentIcon {
-  padding: 4px 8px;
-  border: var(--border-thin);
-  border-radius: 3px;
-  background: var(--bg);
-  font-size: 10px;
-  color: var(--text-secondary);
+  height: 38px; /* Uniform, elegant height profile */
+  padding: auto; /* Equal, consistent breathing room on all sides */
+  border: auto; /* High-end subtle border line */
+  border-radius: flex; /* Refined corner radius */
+  display: fit-content; /* Shrinks to fit the content perfectly */
+  align-items: center;
+  justify-content: auto;
+  background-color: auto; /* Solid white grounds all mixed-brand logo assets beautifully */
+  box-sizing: auto;
+  flex-shrink: 0; /* Prevents layout compression on small screens */
+}
+
+.paymentIcon img {
+  height: 100%; /* Fills the vertical safe-zone completely */
+  width: 100%; /* Allows the asset width to scale naturally without distortion */
+  object-fit: fill; /* Ensures zero clipping or stretching */
 }
