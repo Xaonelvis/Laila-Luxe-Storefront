@@ -5,7 +5,7 @@ export const products = [
     price: 'UGX 185,000',
     category: 'home',
     description: 'Minimal luxury ceramic vase for modern interiors.',
-    image: '/images/Elegant-Home-Vase.WebP',
+    image: '/images/Elegant-Home-Vase.webp',
     featured: true,
     whatsappMessage: 'Hello, I want to order the Elegant Home Vase',
   },
@@ -26,7 +26,7 @@ export const products = [
     category: 'accessories',
     description:
       'Premium full-grain leather bifold wallet with a rich olive-green patina.',
-    image: '/images/The-Verdant-Reserve_Leather-Bifold.WebP',
+    image: '/images/The-Verdant-Reserve_Leather-Bifold.webp',
     featured: true,
     whatsappMessage:
       'Hello Luxe Team, I want to order The Verdant Reserve Leather Bifold',
@@ -38,7 +38,7 @@ export const products = [
     category: 'fashion',
     description:
       'Understated luxury sneaker with pebbled cream leather and slate-grey suede.',
-    image: '/images/The-Aether_Leather-&-Suede-Sneaker.WebP',
+    image: '/images/The-Aether_Leather-&-Suede-Sneaker.webp',
     featured: true,
     whatsappMessage:
       'Hello Luxe Team, I want to order The Aether Leather & Suede Sneaker',
@@ -50,7 +50,7 @@ export const products = [
     category: 'accessories',
     description:
       'Double-walled vacuum insulated flask with a sleek, matte desert-sand finish.',
-    image: '/images/The-Solace_Insulated_Thermal-Flask.WebP',
+    image: '/images/The-Solace_Insulated_Thermal-Flask.webp',
     featured: true,
     whatsappMessage:
       'Hello Luxe Team, I want to order The Solace Insulated Thermal Flask',
@@ -62,7 +62,7 @@ export const products = [
     category: 'home',
     description:
       'A sophisticated daily set featuring a textured ceramic mug and a ribbed glass tumbler.',
-    image: '/images/The-Artisan-Ritual-Coffee-Duo.WebP',
+    image: '/images/The-Artisan-Ritual-Coffee-Duo.webp',
     featured: true,
     whatsappMessage: 'Hello Luxe Team, I want to order The Artisan Ritual Coffee Duo',
   },
@@ -73,7 +73,7 @@ export const products = [
     category: 'home',
     description:
       'Premium wide-mouth thermal jar to keep culinary creations perfectly hot or cold on the go.',
-    image: '/images/The-Epicurean-Insulated-Food-Flask.WebP',
+    image: '/images/The-Epicurean-Insulated-Food-Flask.webp',
     featured: true,
     whatsappMessage:
       'Hello Luxe Team, I want to order The Epicurean Insulated Food Flask',
@@ -92,7 +92,7 @@ export const products = [
       'A masterclass in modest elegance. Crafted from a heavyweight, breathable silk-blend drape that flows flawlessly while maintaining complete opacity.',
     price: 450000,
     category: 'Modest Elegance',
-    image: '/images/Imperial-Silk-Blend-Shariah.WebP', // Placeholder
+    image: '/images/Imperial-Silk-Blend-Shariah.webp', // Placeholder
     featured: true,
     features: [
       'Pristine silk-blend fabric',
@@ -107,7 +107,7 @@ export const products = [
       'An ultra-lightweight, exquisitely soft veil designed for effortless draping and secure, all-day comfort without pins.',
     price: 120000,
     category: 'Modest Elegance',
-    image: '/images/Ethereal-Chiffon-Contour-Veil.WebP',
+    image: '/images/Ethereal-Chiffon-Contour-Veil.webp',
     featured: true,
     features: [
       'Breathable micro-chiffon',
@@ -122,7 +122,7 @@ export const products = [
       'Structured luxury tailored with deep velvet cuffs and a fluid, sweeping silhouette for high-profile evening wear.',
     price: 520000,
     category: 'Modest Elegance',
-    image: '/images/Midnight-Velvet-Trim-Abaya.WebP',
+    image: '/images/Midnight-Velvet-Trim-Abaya.webp',
     featured: true,
     features: [
       'Hand-stitched velvet accents',
@@ -137,7 +137,7 @@ export const products = [
       'The definitive premium shirt. Cut from authentic long-staple Egyptian cotton for a crisp, commanding profile that resists creasing.',
     price: 280000,
     category: 'Apparel',
-    image: '/images/Bespoke-Egyptian-Cotton-Oxford.WebP',
+    image: '/images/Bespoke-Egyptian-Cotton-Oxford.webp',
     featured: true,
     features: [
       '120-thread count pure cotton',
@@ -152,7 +152,7 @@ export const products = [
       'Fluid, frictionless luxury. A collarless architectural blouse designed for seamless layering under blazers or shariahs.',
     price: 310000,
     category: 'Apparel',
-    image: '/images/Silk-Weave-Minimalist-Blouse.WebP',
+    image: '/images/Silk-Weave-Minimalist-Blouse.webp',
     featured: true,
     features: [
       'Pure mulberry silk',
@@ -169,7 +169,7 @@ export const products = [
       'A structured, high-capacity leather tote engineered to carry daily essentials, including a 15-inch laptop, without losing its pristine shape.',
     price: 850000,
     category: 'Bags & Leather',
-    image: '/images/Laila-Signature-Monolith-Tote.WebP',
+    image: '/images/Laila-Signature-Monolith-Tote.webp',
     featured: true,
     features: [
       'Full-grain calfskin leather',
@@ -184,7 +184,7 @@ export const products = [
       'A lifetime accessory. Cut from a single piece of thick, vegetable-tanned leather and secured with a brushed tungsten buckle.',
     price: 180000,
     category: 'Bags & Leather',
-    image: '/images/Sovereign-Hide-Tension-Belt.WebP',
+    image: '/images/Sovereign-Hide-Tension-Belt.webp',
     featured: true,
     features: [
       'Vegetable-tanned core',
@@ -199,7 +199,7 @@ export const products = [
       'Aerospace-grade polycarbonate travel matrix built to absorb high-impact transit while rolling silently on Japanese Hinomoto wheels.',
     price: 1450000,
     category: 'Travel',
-    image: '/images/Aero-Shell-Carbon-Spinner-Suitcase.WebP',
+    image: '/images/Aero-Shell-Carbon-Spinner-Suitcase.webp',
     featured: true,
     features: [
       'Crush-proof carbon shell',
@@ -214,7 +214,7 @@ export const products = [
       'Rugged yet refined. A heavyweight cargo bag constructed from military-grade ballistic nylon with premium leather touchpoints.',
     price: 680000,
     category: 'Travel',
-    image: '/images/Nomad-Ballistic-Cargo-Duffel.WebP',
+    image: '/images/Nomad-Ballistic-Cargo-Duffel.webp',
     featured: true,
     features: [
       'Waterproof ballistic nylon',
@@ -229,7 +229,7 @@ export const products = [
       'Compact travel architecture. Keeps your passport, phone, and currency secure directly against the body in high-density environments.',
     price: 420000,
     category: 'Bags & Leather',
-    image: '/images/Executive-Crossbody-Satchel.WebP',
+    image: '/images/Executive-Crossbody-Satchel.webp',
     featured: true,
     features: [
       'RFID-blocking core matrix',
@@ -246,7 +246,7 @@ export const products = [
       'The centerpiece of the modern bedroom space. Deep-sleep architectural foam layered with premium linen designed for uncompromising comfort.',
     price: 3500000,
     category: 'Interior Architecture',
-    image: '/images/Elysium-Modular-bed-Couch.WebP',
+    image: '/images/Elysium-Modular-bed-Couch.webp',
     featured: true,
     features: [
       'High-resilience memory foam',
@@ -275,7 +275,7 @@ export const products = [
       'Chef-grade heavy-gauge stainless steel saucepan featuring a precision copper core for instantaneous thermal control.',
     price: 340000,
     category: 'Culinary Elements',
-    image: 'public/images/Aura-Tri-Ply-Culinary-Saucier.WebP',
+    image: '/images/Aura-Tri-Ply-Culinary-Saucier.webp',
     featured: true,
     features: [
       '5-Ply thermal matrix',
@@ -290,7 +290,7 @@ export const products = [
       'The ultimate reduction pan. Fused with a diamond-reinforced ceramic coating that allows for high-heat searing without sticking.',
     price: 290000,
     category: 'Culinary Elements',
-    image: 'public/images/Titanium-Core-Non-Stick-Skillet.WebP',
+    image: '/images/Titanium-Core-Non-Stick-Skillet.webp',
     featured: true,
     features: [
       'Diamond-infused ceramic',
@@ -307,7 +307,7 @@ export const products = [
       'Not your average water container. A heavy-duty, food-grade premium plastic jerry can engineered with UV-resistance and a zero-leak spigot.',
     price: 150000,
     category: 'Premium Utility',
-    image: 'public/images/Hydro-Vault-High-Density-Reserve.WebP',
+    image: '/images/Hydro-Vault-High-Density-Reserve.webp',
     featured: true,
     features: [
       'BPA-Free structural resin',
@@ -322,7 +322,7 @@ export const products = [
       'Double-walled vacuum insulation architecture capable of locking in extreme temperatures for up to 36 hours.',
     price: 185000,
     category: 'Premium Utility',
-    image: 'public/images/Thermal-Monolith-Vacuum-Flask.WebP',
+    image: '/images/Thermal-Monolith-Vacuum-Flask.webp',
     featured: true,
     features: [
       '316 surgical-grade steel',
@@ -337,7 +337,7 @@ export const products = [
       'Minimalist hydration. Features a tactile matte ceramic coating over a steel core, perfectly sized for luxury vehicle cup holders.',
     price: 110000,
     category: 'Premium Utility',
-    image: 'public/images/Aero-Light-Travel-Tumbler-Cup.WebP',
+    image: '/images/Aero-Light-Travel-Tumbler-Cup.webp',
     featured: true,
     features: [
       'Ceramic-lined interior',
@@ -352,7 +352,7 @@ export const products = [
       'A modular, airtight premium plastic container set. Crystal clear, shatter-resistant, and engineered for high-end pantry organization.',
     price: 220000,
     category: 'Premium Utility',
-    image: 'public/images/Pristine-Culinary-Storage_Matrix.WebP',
+    image: '/images/Pristine-Culinary-Storage_Matrix.webp',
     featured: true,
     features: [
       'Tritan shatter-proof plastic',
@@ -369,7 +369,7 @@ export const products = [
       'A monolithic matte black ultrasonic oil diffuser that transforms interior spaces with microscopic, cold-water vapor infused with essential oils.',
     price: 260000,
     category: 'Home Decor',
-    image: '/images/Laila-Luxe-Signature-Diffuser.WebP',
+    image: '/images/Laila-Luxe-Signature-Diffuser.webp',
     featured: true,
     features: [
       'Whisper-quiet ultrasonics',
@@ -384,7 +384,7 @@ export const products = [
       'Luxurious storage lined with ultra-soft plush protection designed to safeguard fine horological pieces during international travel.',
     price: 340000,
     category: 'Accessories',
-    image: '/images/Chronos-Watch-Roll-Cylinder.WebP',
+    image: '/images/Chronos-Watch-Roll-Cylinder.webp',
     featured: true,
     features: [
       'Rigid crush-proof structure',
@@ -399,7 +399,7 @@ export const products = [
       'Minimalist rigid aerospace-grade carbon fiber matrix with an integrated spring-steel money clip mechanism.',
     price: 130000,
     category: 'Accessories',
-    image: '/images/Stealth-Carbon-Card-Sleeve.WebP',
+    image: '/images/Stealth-Carbon-Card-Sleeve.webp',
     featured: true,
     features: [
       'Aerospace carbon weave',
@@ -414,7 +414,7 @@ export const products = [
       'Hand-poured into a thick glass vessel. A complex, heavy fragrance profile designed to anchor the atmosphere of any luxury room.',
     price: 95000,
     category: 'Home Decor',
-    image: '/images/Oud-&-Damask-Rose-Candle.WebP',
+    image: '/images/Oud-&-Damask-Rose-Candle.webp',
     featured: true,
     features: [
       '100% natural soy wax',
