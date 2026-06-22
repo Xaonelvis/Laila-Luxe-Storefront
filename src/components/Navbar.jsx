@@ -1,27 +1,12 @@
 /**
- * LAILA LUXE
+ * LAILA QUALITY SHOP
  * FILE: Navbar.jsx
- * PLACEMENT: src/components/Navbar.jsx  (REPLACE existing)
+ * PLACEMENT: src/components/Navbar.jsx (REPLACE existing)
  *
- * 3-STATE SCROLL SYSTEM:
- *
- * State 0 — Landing (transparent, overlays hero):
- *   Desktop: [☰ MENU] [Logo]   [──── Search ────]   [🛒 CART] [👤 My Luxe]
- *   Mobile:  [Logo]                                   [🔍] [🛒] [☰]
- *
- * State 1 — Scrolling through hero (frosted, labels hidden):
- *   Desktop: [☰] [Logo]   [──── Search ────]   [🛒] [👤 My Luxe]
- *   Mobile:  [Logo]                              [🔍] [🛒] [☰]
- *
- * State 2 — Past marquee strip (solid, brand name center):
- *   Desktop: [☰] [🔍]   LAILA LUXE   [🛒] [👤 My Luxe]
- *   Mobile:  [👤][❤]   LAILA LUXE   [🔍] [🛒]
- *
- * ARCHITECTURE:
- * - position: fixed — overlays hero for transparent effect
- * - Scroll thresholds computed from #hero-section + #marquee-strip DOM IDs
- * - Framer Motion AnimatePresence handles element transitions between states
- * - WishlistContext drives heart icon fill state
+ * MOBILE NAV UPDATES:
+ * - State 0: Right side shows [Search] [Cart] [Menu]
+ * - State 1: Right side shows [Account] [Cart] [Menu] (Search is replaced)
+ * - State 2: Left side shows [Menu] [Wishlist] (Account is replaced by Menu)
  */
 
 import { useState, useEffect } from 'react';
@@ -184,19 +169,23 @@ function NavBtn({ onClick, label, showLabel, children, ariaLabel }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function Navbar({ onSearch }) {
+export default function Navbar({ onSearch, onOpenCheckout }) {
   const [scrollState, setScrollState] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearch] = useState(false);
   const [desktopSearchOpen, setDesktopSearch] = useState(false);
-  const [logoError, setLogoError] = useState(false);
   const [centreQuery, setCentreQuery] = useState('');
 
   const width = useWindowWidth();
   const isMobile = width <= MOBILE_BP;
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
+
+  // FIX: If the screen scales up to desktop, close the mobile search immediately during render
+  if (!isMobile && mobileSearchOpen) {
+    setMobileSearch(false);
+  }
 
   // ── Scroll state machine ────────────────────────────────────────────────────
   useEffect(() => {
@@ -239,12 +228,6 @@ export default function Navbar({ onSearch }) {
     };
   }, []);
 
-  // Close mobile search when switching to desktop
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (!isMobile) setMobileSearch(false);
-  }, [isMobile]);
-
   // ── Derived styles ──────────────────────────────────────────────────────────
   const navH = isMobile
     ? NAV_H.mobile[scrollState]
@@ -272,28 +255,69 @@ export default function Navbar({ onSearch }) {
     transition: 'all 400ms ease',
   };
 
-  const logoEl = logoError ? (
-    <span
-     href="home"
+  // ── INLINE BRAND MARK (States 0 & 1) ───────────────────────────────
+  const logoEl = (
+    <a
+      href="/"
+      aria-label="LAILA QUALITY SHOP Home"
       style={{
-        fontSize: '14px',
-        fontWeight: 700,
-        letterSpacing: '4px',
-        color: colors.textPrimary,
+        display: 'block',
+        height: isMobile ? '36px' : '44px',
+        width: 'auto',
+        transition: 'transform 200ms ease',
       }}
     >
-      LAILA LUXE
-    </span>
-  ) : (
-    <img
-     href="home"
-      src="/assets/logo.svg"
-      alt="LAILA LUXE"
-      style={{ height: '44px', width: 'auto', display: 'block' }}
-      onError={() => setLogoError(true)}
-    />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 400 130"
+        style={{ height: '100%', width: 'auto', display: 'block' }}
+      >
+        <text
+          x="208"
+          y="56"
+          textAnchor="middle"
+          fill={colors.textPrimary}
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: '52px',
+            fontWeight: 300,
+            letterSpacing: '16px',
+            textTransform: 'uppercase',
+          }}
+        >
+          LAILA
+        </text>
+        <text
+          x="203.75"
+          y="92"
+          textAnchor="middle"
+          fill={colors.textPrimary}
+          style={{
+            fontFamily: "'Montserrat', sans-serif",
+            fontSize: '13.5px',
+            fontWeight: 700,
+            letterSpacing: '7.5px',
+            textTransform: 'uppercase',
+          }}
+        >
+          QUALITY SHOP
+        </text>
+        <line
+          x1="140"
+          y1="114"
+          x2="260"
+          y2="114"
+          style={{
+            stroke: colors.gold,
+            strokeWidth: '1.5px',
+            strokeLinecap: 'round',
+          }}
+        />
+      </svg>
+    </a>
   );
 
+  // ── SOLID COMPRESSED ACCENT BRAND MARK (State 2) ────────────────────────────
   const brandEl = (
     <motion.span
       initial={{ opacity: 0, y: 8 }}
@@ -301,15 +325,16 @@ export default function Navbar({ onSearch }) {
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.3 }}
       style={{
-        fontSize: isMobile ? '15px' : '18px',
+        fontSize: isMobile ? '13px' : '15px',
         fontWeight: 700,
         letterSpacing: isMobile ? '4px' : '6px',
         color: colors.textPrimary,
         textTransform: 'uppercase',
         whiteSpace: 'nowrap',
+        fontFamily: 'inherit',
       }}
     >
-      LAILA LUXE
+      LAILA QUALITY SHOP
     </motion.span>
   );
 
@@ -466,7 +491,7 @@ export default function Navbar({ onSearch }) {
               </AnimatePresence>
             </div>
 
-            {/* RIGHT: Cart + Account (My Luxe always labelled) */}
+            {/* RIGHT: Cart + Account */}
             <div
               style={{
                 display: 'flex',
@@ -529,16 +554,16 @@ export default function Navbar({ onSearch }) {
                         fontSize: '11px',
                         fontWeight: 700,
                         letterSpacing: '1.5px',
-                        textTransform: 'autopcase',
+                        textTransform: 'uppercase',
                       }}
                     >
-                      Shopping Bag
+                      Bag
                     </motion.span>
                   )}
                 </AnimatePresence>
               </button>
 
-              {/* Account — "My Luxe" always visible */}
+              {/* Account */}
               <button
                 aria-label="My account"
                 style={{
@@ -556,10 +581,10 @@ export default function Navbar({ onSearch }) {
                 <AccountSvg />
                 <span
                   style={{
-                    fontSize: '12px',
+                    fontSize: '11px',
                     fontWeight: 700,
                     letterSpacing: '1px',
-                    textTransform: 'autopcase',
+                    textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
                   }}
                 >
@@ -597,25 +622,41 @@ export default function Navbar({ onSearch }) {
                     gap: spacing.sm,
                   }}
                 >
-                  <button
-                    onClick={() => setMobileSearch((v) => !v)}
-                    aria-label="Search"
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      color: colors.textPrimary,
-                      display: 'flex',
-                      padding: spacing.xs,
-                    }}
-                  >
-                    <SearchSvg />
-                  </button>
+                  {/* Dynamic Swap: Search (State 0) / Account (State 1) */}
+                  {scrollState === 0 ? (
+                    <button
+                      onClick={() => setMobileSearch((v) => !v)}
+                      aria-label="Search"
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: colors.textPrimary,
+                        display: 'flex',
+                        padding: spacing.xs,
+                      }}
+                    >
+                      <SearchSvg />
+                    </button>
+                  ) : (
+                    <button
+                      aria-label="Account"
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: colors.textPrimary,
+                        display: 'flex',
+                        padding: spacing.xs,
+                      }}
+                    >
+                      <AccountSvg size={20} />
+                    </button>
+                  )}
                   <CartIcon
                     cartCount={cartCount}
                     onClick={() => setCartOpen(true)}
                   />
-                  {/* Hamburger button */}
                   <button
                     onClick={() => setMenuOpen((v) => !v)}
                     aria-label="Menu"
@@ -634,7 +675,7 @@ export default function Navbar({ onSearch }) {
               </motion.div>
             )}
 
-            {/* State 2: Account+Wishlist left, Brand centre, Search+Cart right */}
+            {/* State 2: Menu+Wishlist left, Brand centre, Search+Cart right */}
             {scrollState === 2 && (
               <motion.div
                 key="mob-2"
@@ -649,7 +690,7 @@ export default function Navbar({ onSearch }) {
                   width: '100%',
                 }}
               >
-                {/* Left: Account + Wishlist */}
+                {/* Left: Hamburger Menu (Replaces Account) + Wishlist */}
                 <div
                   style={{
                     display: 'flex',
@@ -658,7 +699,8 @@ export default function Navbar({ onSearch }) {
                   }}
                 >
                   <button
-                    aria-label="Account"
+                    onClick={() => setMenuOpen((v) => !v)}
+                    aria-label="Menu"
                     style={{
                       background: 'none',
                       border: 'none',
@@ -668,14 +710,10 @@ export default function Navbar({ onSearch }) {
                       padding: spacing.xs,
                     }}
                   >
-                    <AccountSvg size={20} />
+                    <MenuSvg />
                   </button>
                   <button
                     aria-label="Wishlist"
-                    onClick={() => {
-                      // Wishlist drawer — future feature
-                      // For now, shows count is tracked
-                    }}
                     style={{
                       background: 'none',
                       border: 'none',
@@ -747,7 +785,7 @@ export default function Navbar({ onSearch }) {
         )}
       </nav>
 
-      {/* Mobile search panel — fixed below navbar */}
+      {/* Mobile search panel */}
       {mobileSearchOpen && (
         <div
           style={{
@@ -772,7 +810,7 @@ export default function Navbar({ onSearch }) {
         </div>
       )}
 
-      {/* Desktop search overlay — shown in state 2 when search icon is clicked */}
+      {/* Desktop search overlay */}
       {!isMobile && desktopSearchOpen && scrollState === 2 && (
         <div
           style={{
@@ -800,7 +838,11 @@ export default function Navbar({ onSearch }) {
       <HamburgerMenu isOpen={menuOpen} onToggle={setMenuOpen} />
 
       {/* Cart drawer */}
-      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+      <CartDrawer
+        isOpen={cartOpen}
+        onClose={() => setCartOpen(false)}
+        onOpenCheckout={onOpenCheckout} // <--- Add this line
+      />
     </>
   );
 }

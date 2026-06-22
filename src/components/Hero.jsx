@@ -1,15 +1,13 @@
 /**
- * LAILA LUXE
+ * LAILA QUALITY SHOP
  * FILE: Hero.jsx
- * PLACEMENT: src/components/Hero.jsx  (REPLACE existing)
+ * PLACEMENT: src/components/Hero.jsx (REPLACE existing)
  *
- * CHANGES:
- * - id="hero-section" added — Navbar reads this to compute scroll threshold
- * - Typography made louder: clamp(72px→180px), wider letter-spacing
- * - Scroll indicator upgraded: mouse SVG icon + "DISCOVER" label
- * - bgImage prop: when provided, applies dark overlay + white text
- * - minHeight: '100vh' — fills full viewport behind fixed navbar
- * - paddingTop: '88px' — pushes content below fixed navbar
+ * ADJUSTMENTS FOR MASSIVE VISUAL WEIGHT:
+ * - Typography restored to massive scale: clamp(72px -> 165px)
+ * - QUALITY SHOP transformed into a bold, high-visibility geometric anchor
+ * - Tighter line-height and margins to eliminate empty dead space
+ * - Diamond icon stroke-weight multiplied to balance the heavy typography
  */
 
 import { motion } from 'framer-motion';
@@ -20,17 +18,16 @@ const expo = [0.16, 1, 0.3, 1];
 export default function Hero({ onExplore, bgImage }) {
   const hasImage = Boolean(bgImage);
 
-  // Text colors adapt to background
   const headlineColor = hasImage ? '#FFFFFF' : colors.textPrimary;
-  const subColor = hasImage ? 'rgba(255,255,255,0.75)' : colors.textSecondary;
+  const subColor = hasImage ? 'rgba(255,255,255,0.85)' : colors.textPrimary;
   const kickerColor = hasImage ? '#D4AA7D' : colors.gold;
   const ruleColor = hasImage ? '#D4AA7D' : colors.gold;
   const ctaBg = hasImage ? 'rgba(255,255,255,0.15)' : colors.gold;
-  const ctaColor = hasImage ? '#FFFFFF' : '#FFFFFF';
+  const ctaColor = '#FFFFFF';
   const ctaBorder = hasImage ? '1px solid rgba(255,255,255,0.4)' : 'none';
 
   const sectionStyle = {
-    id: 'hero-section', // NOTE: id is set on the JSX element below
+    id: 'hero-section',
     position: 'relative',
     minHeight: '100vh',
     display: 'flex',
@@ -39,7 +36,7 @@ export default function Hero({ onExplore, bgImage }) {
     justifyContent: 'center',
     textAlign: 'center',
     overflow: 'hidden',
-    paddingTop: '88px', // clears fixed navbar
+    paddingTop: '100px',
     paddingBottom: spacing.huge,
     paddingLeft: spacing.lg,
     paddingRight: spacing.lg,
@@ -58,7 +55,6 @@ export default function Hero({ onExplore, bgImage }) {
 
   return (
     <section id="hero-section" style={sectionStyle}>
-      {/* Radial gold aura — only on cream version */}
       {!hasImage && (
         <div
           aria-hidden="true"
@@ -79,73 +75,103 @@ export default function Hero({ onExplore, bgImage }) {
 
       {/* Kicker */}
       <motion.p
-        initial={{ opacity: 0, y: 18 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.1, ease: expo }}
         style={{
           fontSize: typography.micro.fontSize,
           fontWeight: 700,
-          letterSpacing: '6px',
+          letterSpacing: '8px',
           color: kickerColor,
           textTransform: 'uppercase',
-          margin: `0 0 ${spacing.xl} 0`,
+          margin: '0 0 20px 0',
         }}
       >
         New Season · 2026
       </motion.p>
 
-      {/* ── Main headline — the LOUD part ── */}
-      <motion.h1
-        initial={{ opacity: 0, y: 48 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1, delay: 0.22, ease: expo }}
+      {/* 1. Heavy-Duty Diamond Mark */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.15, ease: expo }}
         style={{
-          // clamp: 72px mobile → 180px wide desktop
-          fontSize: 'clamp(72px, 16vw, 180px)',
-          fontWeight: 300,
-          // LAILA gets extreme width, LUXE gets tighter weight contrast
-          letterSpacing: 'clamp(14px, 3.5vw, 40px)',
-          color: headlineColor,
-          lineHeight: 0.92,
-          margin: 0,
+          width: 'clamp(110px, 15vw, 150px)', // Increased foundational size
+          height: 'auto',
+          marginBottom: '12px', // Tightened to lock closely with typography
+        }}
+      ></motion.div>
+
+      {/* 2. Brand Typography Block */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        LAILA
-        <br />
-        <span
+        {/* Massive Primary Heading */}
+        <motion.h1
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.25, ease: expo }}
           style={{
-            fontWeight: 700,
-            letterSpacing: 'clamp(8px, 2vw, 22px)',
-            // Slightly tighter on LUXE for visual tension
+            fontSize: 'clamp(80px, 15vw, 165px)', // Restored huge original presence
+            fontWeight: 300,
+            letterSpacing: 'clamp(16px, 3.5vw, 36px)',
+            color: headlineColor,
+            lineHeight: 0.85, // Squeezes layout block vertical spread tightly
+            margin: 0,
+            paddingLeft: 'clamp(16px, 3.5vw, 36px)',
           }}
         >
-          LUXE
-        </span>
-      </motion.h1>
+          LAILA
+        </motion.h1>
 
-      {/* Animated gold rule */}
+        {/* Instantly Visible, Heavy Sub-Headline */}
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.4, ease: expo }}
+          style={{
+            fontFamily: 'inherit', // Uses your template's solid sans/main token
+            fontSize: 'clamp(20px, 3.2vw, 38px)', // Drastically scaled up for instant visibility
+            fontWeight: 700, // Thickened weight matches old "LUXE" gravity
+            letterSpacing: 'clamp(6px, 1.2vw, 14px)',
+            color: subColor,
+            textTransform: 'uppercase',
+            margin: '12px 0 0 0',
+            paddingLeft: 'clamp(6px, 1.2vw, 14px)',
+            lineHeight: 1,
+          }}
+        >
+          QUALITY SHOP
+        </motion.h2>
+      </div>
+
+      {/* Center Balance Accent Divider */}
       <motion.div
         aria-hidden="true"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
-        transition={{ duration: 1, delay: 0.9, ease: expo }}
+        transition={{ duration: 1.2, delay: 0.7, ease: expo }}
         style={{
-          width: '100px',
-          height: '1px',
+          width: '140px',
+          height: '2px', // Slightly thicker line definition
           background: ruleColor,
-          margin: `${spacing.xl} auto`,
+          margin: '32px auto 24px auto',
           transformOrigin: 'center',
         }}
       />
 
-      {/* Tagline */}
+      {/* Editorial Slogan */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.9, delay: 1.1 }}
+        transition={{ duration: 0.9, delay: 0.9 }}
         style={{
           fontSize: typography.small.fontSize,
-          color: subColor,
+          color: hasImage ? 'rgba(255,255,255,0.7)' : colors.textSecondary,
           letterSpacing: '4px',
           textTransform: 'uppercase',
           margin: `0 0 ${spacing.xxl} 0`,
@@ -154,12 +180,12 @@ export default function Hero({ onExplore, bgImage }) {
         Redefining Everyday Luxury
       </motion.p>
 
-      {/* CTA */}
+      {/* CTA Button */}
       <motion.button
-        initial={{ opacity: 0, y: 22 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.3 }}
-        whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(184,149,106,0.35)' }}
+        transition={{ duration: 0.6, delay: 1.1 }}
+        whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(184,149,106,0.3)' }}
         whileTap={{ scale: 0.97 }}
         onClick={onExplore}
         style={{
@@ -181,12 +207,12 @@ export default function Hero({ onExplore, bgImage }) {
         Explore Collections
       </motion.button>
 
-      {/* ── Upgraded scroll indicator ── */}
+      {/* Scroll Indicator */}
       <motion.div
         aria-hidden="true"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.55 }}
-        transition={{ duration: 1.2, delay: 2 }}
+        transition={{ duration: 1.2, delay: 1.6 }}
         style={{
           position: 'absolute',
           bottom: spacing.xl,
@@ -198,7 +224,6 @@ export default function Hero({ onExplore, bgImage }) {
           gap: spacing.sm,
         }}
       >
-        {/* Mouse icon with animated scroll dot */}
         <svg
           width="26"
           height="40"
@@ -226,8 +251,6 @@ export default function Hero({ onExplore, bgImage }) {
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
           />
         </svg>
-
-        {/* "DISCOVER" label */}
         <span
           style={{
             fontSize: '9px',

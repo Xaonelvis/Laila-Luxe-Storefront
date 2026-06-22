@@ -1,21 +1,7 @@
 /**
- * LAILA LUXE
+ * LAILA QUALITY SHOP
  * FILE: HamburgerMenu.jsx
- *
- * PURPOSE:
- * Mobile hamburger menu with side drawer.
- * Contains navigation items in sophisticated language.
- *
- * STRUCTURE:
- * - Brand statement
- * - Main navigation (Home, Collections, Our Story, Get in Touch)
- * - Secondary section (My Account, Customer Care)
- * - Social icons footer
- *
- * RULE:
- * - Visual structure only (no navigation logic yet)
- * - Smooth slide-in animation
- * - Semi-transparent backdrop overlay
+ * PLACEMENT: src/components/HamburgerMenu.jsx
  */
 
 import { colors, spacing, typography, shadows } from '../design';
@@ -56,19 +42,12 @@ const styles = {
   },
 
   header: {
-    padding: spacing.lg,
+    padding: `${spacing.md} ${spacing.lg}`,
     borderBottom: `1px solid ${colors.border}`,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-
-  brandStatement: {
-    fontSize: typography.small.fontSize,
-    color: colors.textSecondary,
-    margin: 0,
-    fontWeight: 500,
-    letterSpacing: '0.5px',
+    boxSizing: 'border-box',
   },
 
   closeButton: {
@@ -129,21 +108,18 @@ const styles = {
     display: 'flex',
     gap: spacing.md,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
   socialIcon: {
-    width: '32px',
-    height: '32px',
+    width: '36px',
+    height: '36px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: colors.textPrimary,
+    color: colors.textSecondary,
     cursor: 'pointer',
-    transition: 'color 150ms ease',
-
-    '&:hover': {
-      color: colors.gold,
-    },
+    transition: 'color 150ms ease, transform 150ms ease',
   },
 };
 
@@ -157,6 +133,75 @@ const menuItems = [
 ];
 
 const socialLinks = ['instagram', 'linkedin', 'twitter', 'facebook', 'tiktok'];
+
+// High-fidelity vector map matching the core UI aesthetics
+const socialIcons = {
+  instagram: (
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  ),
+  linkedin: (
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  ),
+  twitter: (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  ),
+  facebook: (
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  ),
+  tiktok: (
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+    </svg>
+  ),
+};
 
 export default function HamburgerMenu({ isOpen = false, onToggle }) {
   return (
@@ -178,11 +223,69 @@ export default function HamburgerMenu({ isOpen = false, onToggle }) {
           ...(isOpen ? styles.drawerOpen : styles.drawerClosed),
         }}
       >
-        {/* Header with Close Button */}
+        {/* Header with Clickable Brand SVG Mark */}
         <div style={styles.header}>
-          <a href="home" style={styles.brandStatement}>
-            LAILA LUXE
+          <a
+            href="/"
+            aria-label="LAILA QUALITY SHOP Home"
+            style={{
+              display: 'block',
+              width: '135px',
+              height: 'auto',
+              color: colors.textPrimary,
+              transition: 'opacity 200ms ease',
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 400 130"
+              width="100%"
+              height="100%"
+            >
+              <text
+                x="208"
+                y="56"
+                textAnchor="middle"
+                fill="currentColor"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: '52px',
+                  fontWeight: 300,
+                  letterSpacing: '16px',
+                  textTransform: 'uppercase',
+                }}
+              >
+                LAILA
+              </text>
+
+              <text
+                x="203.75"
+                y="92"
+                textAnchor="middle"
+                fill="currentColor"
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: '13.5px',
+                  fontWeight: 700,
+                  letterSpacing: '7.5px',
+                  textTransform: 'uppercase',
+                }}
+              >
+                QUALITY SHOP
+              </text>
+
+              <line
+                x1="140"
+                y1="114"
+                x2="260"
+                y2="114"
+                stroke={colors.gold || '#b8956a'}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
           </a>
+
           <button
             style={styles.closeButton}
             onClick={() => onToggle(false)}
@@ -225,9 +328,16 @@ export default function HamburgerMenu({ isOpen = false, onToggle }) {
               title={platform}
               target="_blank"
               rel="noopener noreferrer"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = colors.gold;
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = colors.textSecondary;
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
-              {/* Placeholder icon */}
-              <span style={{ fontSize: '18px' }}>◌</span>
+              {socialIcons[platform]}
             </a>
           ))}
         </div>

@@ -22,6 +22,8 @@ import { products } from './data/products';
 import ProductGrid from './components/ProductGrid';
 import CategoryFilter from './components/CategoryFilter';
 import Navbar from './components/Navbar';
+import AssistantWidget from './components/AssistantWidget';
+import CheckoutDrawer from './components/CheckoutDrawer';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
 import MarqueeStrip from './components/MarqueeStrip';
@@ -32,6 +34,7 @@ function App() {
   const [category, setCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [modalCategory, setModalCategory] = useState(null); // null = modal closed
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   // Ref for Hero CTA smooth scroll
   const productsRef = useRef(null);
@@ -74,7 +77,10 @@ function App() {
       }}
     >
       {/* Navbar — receives onSearch to wire SearchBar to this state */}
-      <Navbar onSearch={setSearchQuery} />
+      <Navbar
+        onSearch={setSearchQuery}
+        onOpenCheckout={() => setIsCheckoutOpen(true)}
+      />
 
       {/* Hero — "Explore Collections" scrolls to products section */}
       <Hero onExplore={scrollToProducts} />
@@ -108,6 +114,11 @@ function App() {
         isOpen={!!modalCategory}
         onClose={() => setModalCategory(null)}
         onCategoryChange={handleModalCategoryChange}
+      />
+      <AssistantWidget />
+      <CheckoutDrawer
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
       />
     </div>
   );

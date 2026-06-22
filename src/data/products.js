@@ -64,7 +64,8 @@ export const products = [
       'A sophisticated daily set featuring a textured ceramic mug and a ribbed glass tumbler.',
     image: '/images/The-Artisan-Ritual-Coffee-Duo.webp',
     featured: true,
-    whatsappMessage: 'Hello Luxe Team, I want to order The Artisan Ritual Coffee Duo',
+    whatsappMessage:
+      'Hello Luxe Team, I want to order The Artisan Ritual Coffee Duo',
   },
   {
     id: 7,
@@ -248,10 +249,7 @@ export const products = [
     category: 'Interior Architecture',
     image: '/images/Elysium-Modular-bed-Couch.webp',
     featured: true,
-    features: [
-      'High-resilience memory foam',
-      'Stain-repellent linen weave',
-    ],
+    features: ['High-resilience memory foam', 'Stain-repellent linen weave'],
   },
   {
     id: 'lx_012',

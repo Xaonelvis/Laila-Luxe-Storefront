@@ -1,20 +1,9 @@
 /**
  * LAILA LUXE
  * FILE: CartDrawer.jsx
- * PLACEMENT: src/components/CartDrawer.jsx  (REPLACE existing)
- *
- * FULL SPEC IMPLEMENTATION:
- * - Quantity controls per item (- qty +)
- * - Remove item button (x)
- * - Summary block: item count + total price
- * - WhatsApp message exactly per spec:
- *     Hi LAILA LUXE TEAM, I would like to order:
- *     - Item xQty -- Total line price
- *     Total: UGX XXXX
- *     Please confirm availability, payment methods and delivery
+ * PLACEMENT: src/components/CartDrawer.jsx
  */
 
-import { APP_CONFIG } from '../config/appConfig';
 import { useCart } from '../context/CartContext';
 import {
   colors,
@@ -27,6 +16,7 @@ import {
 import { formatUGX, parsePrice } from '../utils/constants';
 
 const s = {
+  // ... keeping all your pristine styles exactly the same ...
   overlay: {
     position: 'fixed',
     inset: 0,
@@ -238,33 +228,16 @@ const s = {
   },
 };
 
-export default function CartDrawer({ isOpen = false, onClose }) {
+// 1. ADD onOpenCheckout TO YOUR PROPS DESTRUCTURING
+export default function CartDrawer({
+  isOpen = false,
+  onClose,
+  onOpenCheckout,
+}) {
   const { cartItems, removeItem, updateQuantity, cartCount, cartTotal } =
     useCart();
 
   if (!isOpen) return null;
-
-  const handleWhatsApp = () => {
-    const lines = cartItems
-      .map((item) => {
-        const unit = parsePrice(item.price);
-        const lineTotal =
-          unit > 0
-            ? formatUGX(unit * item.quantity)
-            : item.price || 'Enquire for price';
-        return `- ${item.name} x${item.quantity} -- ${lineTotal}`;
-      })
-      .join('\n');
-
-    const total = cartTotal > 0 ? formatUGX(cartTotal) : 'To be confirmed';
-
-    const message = `Hi LUXE team,\n\nI would like to order:\n\n${lines}\n\nTotal: ${total}\n\nPlease confirm availability, payment methods and delivery`;
-
-    window.open(
-      `https://wa.me/${APP_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`,
-      '_blank',
-    );
-  };
 
   return (
     <div style={s.overlay} onClick={onClose}>
@@ -371,6 +344,8 @@ export default function CartDrawer({ isOpen = false, onClose }) {
           <button style={s.cancelBtn} onClick={onClose}>
             Continue Shopping
           </button>
+
+          {/* 2. UPDATE THIS BUTTON TO TOGGLE THE DRAWER INSTEAD OF FIRING WHATSAPP DIRECTLY */}
           <button
             style={{
               ...s.waBtn,
@@ -379,9 +354,12 @@ export default function CartDrawer({ isOpen = false, onClose }) {
                 : {}),
             }}
             disabled={cartItems.length === 0}
-            onClick={handleWhatsApp}
+            onClick={() => {
+              onClose(); // Smoothly tuck away the selection list
+              onOpenCheckout(); // Elevate the checkout form interface
+            }}
           >
-            Order via WhatsApp
+            Proceed to Checkout
           </button>
         </div>
       </div>
