@@ -1,10 +1,10 @@
-# LAILA LUXE
+# LAILA QUALITY SHOP
 
 A luxury-inspired e-commerce storefront built with React + Vite.
 
 ## ✨ Overview
 
-LAILA LUXE is a modern product showcase platform designed for lightweight commerce using WhatsApp-based checkout instead of traditional cart systems.
+Laila Quality Shop is a modern product showcase platform designed for lightweight commerce using WhatsApp-based checkout instead of traditional cart systems.
 
 ## 🧠 Core Philosophy
 
